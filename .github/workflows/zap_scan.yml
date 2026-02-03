@@ -16,3 +16,12 @@ jobs:
           target: 'https://juice-shop.herokuapp.com/'
           rules_file_name: '.zap/rules.tsv'
           fail_action: true # TC_SEC_14: Trả về lỗi nếu tìm thấy lỗ hổng mức High
+          cmd_options: '-r zap-report.html' 
+
+      # --- BỔ SUNG ĐOẠN NÀY ĐỂ LẤY FILE BÁO CÁO ---
+      - name: Upload ZAP Report
+        if: always() # Luôn chạy kể cả khi ZAP tìm thấy lỗi (Fail)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ZAP-Security-Report
+          path: zap-report.html
